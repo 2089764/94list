@@ -30,6 +30,13 @@ const App = {
 				this.$message.success('检测链接存在密码，已为您自动输入')
 				this.pass = password;
 			}
+			const regex2 = /提取码:\s?([a-zA-Z0-9_-]+)/;
+			const match2 = newValue.match(regex2);
+			if (match2 && match2[1]) {
+				const password = match2[1];
+				this.$message.success('检测链接存在密码，已为您自动输入')
+				this.pass = password;
+			}
 		},
 		DownDialog(newVal) {
 			if (!newVal) {
@@ -186,7 +193,7 @@ const App = {
 				this.taskstate = false;
 				return
 			}
-			axios.post('/api.php/', 'type=get_list&shorturl=' + this.shorturl + '&dir=&root=0&pwd=' + this.pass + '&page=1&num=1000&order=time')
+			axios.post('/api.php', 'type=get_list&shorturl=' + this.shorturl + '&dir=&root=0&pwd=' + this.pass + '&page=1&num=1000&order=time')
 				.then(response => {
 					if (response.data.success) {
 						this.uk = response.data.data.uk 
